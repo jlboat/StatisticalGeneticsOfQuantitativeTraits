@@ -9,6 +9,7 @@ P2 <- function(y, t1, t2, w, r){
     temp2 <- (1-r)*dnorm(y, mean=t2, sd=w)
     return(temp1/(temp1+temp2))
 } 
+
 # This gets MLEs for the Tomato data
 y1 <- c(79, 82,
        100, 102,
@@ -37,14 +38,14 @@ for (i in 1:nit){
     w2 <- P2(y2, m1, m2, s, r)
     m1 <- (sum(w1*y1) + sum(w2*y2))/(sum(w1)+sum(w2))
     m2 <- (sum((1-w1)*y1) + sum((1-w2)*y2))/(sum((1-w1))+sum((1-w2)))
-    s <- sqrt((sum(w1*(y1-m1)^2+(1-w1)*(y1-m2)^2) +
-               sum(w2*(y2-m1)^2+(1-w2)*(y2-m2)^2))/n)
-    r <- (sum(1-w1) + sum(w2))/n
-    r <- min(r, 0.5)
+    s  <- sqrt((sum(w1*(y1-m1)^2+(1-w1)*(y1-m2)^2) +
+                sum(w2*(y2-m1)^2+(1-w2)*(y2-m2)^2))/n)
+    r  <- (sum(1-w1) + sum(w2))/n
+    r  <- min(r, 0.5)
     m1plot <- c(m1plot, m1)
     m2plot <- c(m2plot, m2)
-    splot <- c(splot, s)
-    rplot <- c(rplot, r)
+    splot  <- c(splot, s)
+    rplot  <- c(rplot, r)
 }
 
 # Plot
